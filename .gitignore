@@ -1,3 +1,6 @@
 *.jpg
 *.jpeg
 *.png
+
+secret_code.py
+__pycache__/
