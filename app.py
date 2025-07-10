@@ -9,7 +9,7 @@ import os
 from nutrisnap_utils import (
     temukan_dan_pangkas_komposisi,
     analisis_komposisi,
-    berikan_kesimpulan,
+    berikan_kesimpulan_komposisi,
     ekstrak_data_dengan_koordinat,
     get_catatan_gizi
 )
@@ -29,7 +29,7 @@ def process_image(input_image):
     gambar_komposisi, bahasa_komposisi = temukan_dan_pangkas_komposisi(path_gambar)
     teks_komposisi = pytesseract.image_to_string(gambar_komposisi, lang='ind+eng')
     skor, alasan = analisis_komposisi(teks_komposisi, bahasa_komposisi)
-    kesimpulan, deskripsi = berikan_kesimpulan(skor)
+    kesimpulan, deskripsi = berikan_kesimpulan_komposisi(skor)
     
     # --- Analisis 2: Tabel Nilai Gizi (Kuantitatif) ---
     laporan2_header = "\n[ANALISIS 2: Tabel Nilai Gizi (Kuantitatif dengan PSM 6)]\n"
