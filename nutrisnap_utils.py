@@ -267,7 +267,6 @@ def pangkas_tabel_gizi_otomatis(path_gambar):
             gambar_terpangkas = gambar_asli[y-margin:y+h+margin, x-margin:x+w+margin]
             
             print("INFO: Bingkai tabel gizi terdeteksi! Memangkas otomatis...")
-            cv2.imwrite("hasil_terpangkas.jpg", gambar_terpangkas)
             return gambar_terpangkas
         else:
             print("INFO: Tidak ada bingkai kotak yang terdeteksi, menggunakan gambar penuh.")
