@@ -1,3 +1,2 @@
 tesseract-ocr
-tesseract-ocr-ind
-tesseract-ocr-eng
+tesseract-ocr-all
