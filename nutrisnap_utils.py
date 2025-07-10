@@ -1,13 +1,7 @@
 # Library
 import pytesseract
-from PIL import Image
 import re
-from pathlib import Path
 import cv2
-import pandas as pd
-import google.generativeai as genai
-import json
-import os
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
