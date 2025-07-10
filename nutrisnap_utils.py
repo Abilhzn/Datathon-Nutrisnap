@@ -3,6 +3,74 @@ import pytesseract
 import re
 import cv2
 
+def tentukan_grade_indonesia(data_gizi, info_produk):
+    """
+    Menentukan grade produk (A, B, C, D) berdasarkan sistem penilaian baru
+    yang mengacu pada regulasi BPOM dan Kemenkes.
+    """
+    # Ambil data gizi utama per 100g/ml untuk perbandingan dengan ambang batas
+    # Default ke nilai 0 jika kunci tidak ditemukan
+    gula = data_gizi.get('Gula (Sugar)', 0)
+    lemak_jenuh = data_gizi.get('Lemak Jenuh (Saturated Fat)', 0)
+    natrium = data_gizi.get('Natrium (Sodium)', 0)
+    protein = data_gizi.get('Protein', 0)
+    serat = data_gizi.get('Serat (Fiber)', 0)
+    
+    # Ambil jenis produk (cair/padat) dari info_produk
+    jenis_produk = info_produk.get('jenis', 'padat') # Default ke padat
+
+    # --- Tentukan Grade Awal Berdasarkan Nutrisi Negatif (Gula, Lemak Jenuh, Natrium) ---
+    # Menggunakan ambang batas "Rendah" dari Peraturan BPOM No. 1 Tahun 2022
+    # Dan batas kontribusi GGL harian (>25% dianggap tinggi)
+    
+    # Batas GGL Harian
+    batas_harian_gula = 50 # g
+    batas_harian_natrium = 2000 # mg
+    batas_harian_lemak_jenuh = 20 # g
+
+    # Cek apakah ada nutrisi yang masuk kategori "TINGGI" (melebihi 25% batas harian per saji)
+    is_tinggi_gula = (gula / batas_harian_gula) * 100 > 25
+    is_tinggi_natrium = (natrium / batas_harian_natrium) * 100 > 25
+    is_tinggi_lemak_jenuh = (lemak_jenuh / batas_harian_lemak_jenuh) * 100 > 25
+    
+    if is_tinggi_gula or is_tinggi_natrium or is_tinggi_lemak_jenuh:
+        grade = "D"
+        deskripsi = "Sebaiknya dihindari. Mengandung jumlah tinggi gula, lemak jenuh, dan/atau natrium."
+        return grade, deskripsi
+
+    # Tentukan ambang batas "Rendah" berdasarkan jenis produk (cair/padat)
+    if jenis_produk == 'cair':
+        batas_rendah_gula = 2.5
+        batas_rendah_lemak_jenuh = 0.75
+    else: # padat
+        batas_rendah_gula = 5
+        batas_rendah_lemak_jenuh = 1.5
+    batas_rendah_natrium = 120 # mg (sama untuk padat/cair)
+
+    # Cek apakah memenuhi kriteria "Rendah"
+    is_rendah_gula = gula <= batas_rendah_gula
+    is_rendah_lemak_jenuh = lemak_jenuh <= batas_rendah_lemak_jenuh
+    is_rendah_natrium = natrium <= batas_rendah_natrium
+
+    if not is_rendah_gula or not is_rendah_lemak_jenuh or not is_rendah_natrium:
+        grade = "C"
+        deskripsi = "Perlu dikonsumsi dalam jumlah sedang. Mengandung satu atau lebih nutrisi yang perlu dibatasi."
+    else:
+        grade = "B"
+        deskripsi = "Pilihan yang baik untuk konsumsi rutin."
+
+    # --- Tahap Peningkatan Grade Berdasarkan Nutrisi Positif (Protein & Serat) ---
+    # Cek klaim "Tinggi/Kaya" atau "Sumber" Protein/Serat
+    # (Untuk simplifikasi, kita gunakan batas absolut, bukan %AKG)
+    is_tinggi_serat = (jenis_produk == 'padat' and serat >= 6) or (jenis_produk == 'cair' and serat >= 3)
+    is_sumber_protein = (jenis_produk == 'padat' and protein >= 10) or (jenis_produk == 'cair' and protein >= 5) # Asumsi 10% AKG protein dari 50g
+
+    if grade == "B" and (is_tinggi_serat or is_sumber_protein):
+        grade = "A"
+        deskripsi = "Pilihan terbaik dengan profil gizi yang sangat baik."
+        
+    return grade, deskripsi
+
 # komposisi
 KAMUS_BAHAN_MERAH_ID = {
     'GULA_DAN_PEMANIS': ['gula', 'sirup fruktosa', 'sirup jagung', 'dekstrosa', 'maltodekstrin', 'pemanis buatan', 'aspartam', 'sakarin', 'sukralosa', 'asesulfam-k'],
