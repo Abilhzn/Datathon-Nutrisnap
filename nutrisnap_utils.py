@@ -3,8 +3,6 @@ import pytesseract
 import re
 import cv2
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
 # komposisi
 KAMUS_BAHAN_MERAH_ID = {
     'GULA_DAN_PEMANIS': ['gula', 'sirup fruktosa', 'sirup jagung', 'dekstrosa', 'maltodekstrin', 'pemanis buatan', 'aspartam', 'sakarin', 'sukralosa', 'asesulfam-k'],
