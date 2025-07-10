@@ -1,11 +1,7 @@
-# 🍓 NutriSnap: Analisis Gizi Instan dari Kemasan Makanan
+# NutriSnap: Analisis Gizi Instan dari Kemasan Makanan
 
 <p align="center">
-  <img src="https://i.imgur.com/gO0F2Gz.png" width="200" alt="NutriSnap Logo">
-</p>
-
-<p align="center">
-  <a href="https://huggingface.co/spaces/NAMA_USER_HF_KAMU/NAMA_SPACEMU">
+  <a href="https://huggingface.co/spaces/abilhzn/NutriSnap-Demo">
     <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow" alt="Hugging Face Spaces">
   </a>
   <a href="LICENSE">
@@ -16,7 +12,7 @@
 
 **NutriSnap** adalah sebuah prototipe aplikasi cerdas yang dirancang untuk memecahkan masalah informasi gizi yang rumit pada kemasan makanan. Hanya dengan satu foto, NutriSnap dapat secara otomatis "membaca" dan menganalisis label produk untuk memberikan laporan kesehatan yang mudah dipahami.
 
-## ✨ Fitur Utama
+## Fitur Utama
 
 - **Deteksi & Pangkas Otomatis**: Secara cerdas menemukan dan mengisolasi area "Komposisi" dan "Tabel Nilai Gizi" dari gambar kemasan yang ramai.
 - **Analisis Ganda**: Memberikan dua lapis analisis:
@@ -25,19 +21,17 @@
 - **Dukungan Bilingual**: Mampu memahami label dalam Bahasa Indonesia ("Komposisi", "Gula") dan Bahasa Inggris ("Ingredients", "Sugar").
 - **Antarmuka Interaktif**: Dibangun dengan Gradio dan di-hosting di Hugging Face Spaces untuk demo yang mudah diakses siapa saja.
 
-## 🚀 Demo Live
+## Demo Live
 
 Coba langsung aplikasi NutriSnap di Hugging Face Spaces!
 
-**[➡️ Klik di sini untuk mencoba NutriSnap](https://huggingface.co/spaces/NAMA_USER_HF_KAMU/NAMA_SPACEMU)**
+**[➡️ Klik di sini untuk mencoba NutriSnap](https://huggingface.co/spaces/abilhzn/NutriSnap-Demo)**
 
-*(Catatan: Ganti URL di atas dengan URL Space-mu yang sebenarnya)*
-
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 Proyek ini dibangun menggunakan serangkaian teknologi modern di bidang AI dan pengembangan perangkat lunak:
 
-- **Python 3.10**
+- **Python 3.13**
 - **OpenCV**: Untuk semua tugas pemrosesan gambar, seperti deteksi kontur dan pangkas otomatis.
 - **Tesseract (via `pytesseract`)**: Sebagai mesin Optical Character Recognition (OCR) untuk mengubah gambar teks menjadi data string.
 - **Pandas**: Untuk memanipulasi data hasil OCR yang berbentuk tabel.
@@ -79,10 +73,10 @@ NutriSnap saat ini adalah prototipe yang kuat. Rencana pengembangan selanjutnya 
 - [ ] **Fitur Scan Barcode**: Mendapatkan informasi produk langsung dari database barcode.
 - [ ] **Rekomendasi Personalisasi**: Memberikan saran produk alternatif yang lebih sehat berdasarkan profil pengguna (misal: alergi, preferensi diet).
 
-## 🤝 Kontribusi
+## Kontribusi
 
 Kontribusi, isu, dan permintaan fitur sangat diterima! Jangan ragu untuk membuka *issue* baru atau mengajukan *pull request*.
 
-## 📜 Lisensi
+##  Lisensi
 
 Proyek ini dilisensikan di bawah **Lisensi BSD 3-Clause**. Lihat file `LICENSE` untuk detail lengkap.
