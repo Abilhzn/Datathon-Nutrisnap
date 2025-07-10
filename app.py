@@ -22,7 +22,7 @@ def process_image(input_image):
     Menerima gambar input dan mengembalikan seluruh laporan sebagai satu teks.
     """
     # Gradio menyimpan gambar upload sementara, kita butuh path-nya
-    path_gambar = input_image.name
+    path_gambar = input_image
 
     # --- Analisis 1: Komposisi Bahan (Kualitatif) ---
     laporan1_header = "[ANALISIS 1: Komposisi Bahan (Kualitatif)]\n"
@@ -63,7 +63,7 @@ def process_image(input_image):
 # Membuat Antarmuka Gradio
 demo = gr.Interface(
     fn=process_image,
-    inputs=gr.Image(type="file", label="Upload Gambar Kemasan"),
+    inputs=gr.Image(type="filepath", label="Upload Gambar Kemasan"),
     outputs=gr.Textbox(label="Hasil Analisis NutriSnap", lines=25),
     title="🍓 NutriSnap",
     description="Demo Analisis Gizi Otomatis. Upload gambar kemasan makanan untuk melihat analisis kualitatif dari komposisi dan analisis kuantitatif dari tabel nilai gizi.",
