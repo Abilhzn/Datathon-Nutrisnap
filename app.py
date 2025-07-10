@@ -9,7 +9,7 @@ import os
 from nutrisnap_utils import (
     temukan_dan_pangkas_komposisi,
     analisis_komposisi,
-    berikan_kesimpulan,
+    berikan_kesimpulan_komposisi,
     ekstrak_data_dengan_koordinat,
     get_catatan_gizi
 )
@@ -22,14 +22,14 @@ def process_image(input_image):
     Menerima gambar input dan mengembalikan seluruh laporan sebagai satu teks.
     """
     # Gradio menyimpan gambar upload sementara, kita butuh path-nya
-    path_gambar = input_image.name
+    path_gambar = input_image
 
     # --- Analisis 1: Komposisi Bahan (Kualitatif) ---
     laporan1_header = "[ANALISIS 1: Komposisi Bahan (Kualitatif)]\n"
     gambar_komposisi, bahasa_komposisi = temukan_dan_pangkas_komposisi(path_gambar)
     teks_komposisi = pytesseract.image_to_string(gambar_komposisi, lang='ind+eng')
     skor, alasan = analisis_komposisi(teks_komposisi, bahasa_komposisi)
-    kesimpulan, deskripsi = berikan_kesimpulan(skor)
+    kesimpulan, deskripsi = berikan_kesimpulan_komposisi(skor)
     
     # --- Analisis 2: Tabel Nilai Gizi (Kuantitatif) ---
     laporan2_header = "\n[ANALISIS 2: Tabel Nilai Gizi (Kuantitatif dengan PSM 6)]\n"
@@ -63,7 +63,7 @@ def process_image(input_image):
 # Membuat Antarmuka Gradio
 demo = gr.Interface(
     fn=process_image,
-    inputs=gr.Image(type="file", label="Upload Gambar Kemasan"),
+    inputs=gr.Image(type="filepath", label="Upload Gambar Kemasan"),
     outputs=gr.Textbox(label="Hasil Analisis NutriSnap", lines=25),
     title="🍓 NutriSnap",
     description="Demo Analisis Gizi Otomatis. Upload gambar kemasan makanan untuk melihat analisis kualitatif dari komposisi dan analisis kuantitatif dari tabel nilai gizi.",
