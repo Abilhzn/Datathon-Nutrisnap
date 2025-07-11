@@ -44,8 +44,8 @@ Jika kamu ingin menjalankan proyek ini di komputermu sendiri:
 
 1.  **Clone repositori ini:**
     ```bash
-    git clone [https://github.com/NAMA_USER_GITHUB_KAMU/NAMA_REPO_KAMU.git](https://github.com/NAMA_USER_GITHUB_KAMU/NAMA_REPO_KAMU.git)
-    cd NAMA_REPO_KAMU
+    git clone [https://github.com/Abilhzn/Nutrisnap.git](https://github.com/Abilhzn/Nutrisnap.git)
+    cd Nutrisnap
     ```
 
 2.  **Install dependensi sistem (Tesseract):**
@@ -63,7 +63,7 @@ Jika kamu ingin menjalankan proyek ini di komputermu sendiri:
     ```bash
     python app.py
     ```
-    Buka URL yang muncul di terminal (biasanya `http://127.0.0.1:7860`).
+    .
 
 ## 🗺️ Roadmap & Pengembangan di Masa Depan
 
